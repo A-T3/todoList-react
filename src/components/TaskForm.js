@@ -56,7 +56,7 @@ class TaskForm extends React.Component {
   render() {
     return (
       <div className="row">
-        <h2>Add a new task</h2>
+        <h2>Add a New Task</h2>
         <form
           className="col s12"
           autoComplete="off"
