@@ -1,5 +1,7 @@
 import React from 'react';
 import M from 'materialize-css';
+import { connect } from 'react-redux';
+import { addTask } from '../actions/index';
 
 class TaskForm extends React.Component {
   state = {
@@ -33,25 +35,25 @@ class TaskForm extends React.Component {
     return false;
   };
 
-  onTaskSubmit = event => {
-    event.preventDefault();
+  // onTaskSubmit = event => {
+  //   event.preventDefault();
 
-    const error = this.validate();
-    if (error) {
-      return;
-    }
+  //   const error = this.validate();
+  //   if (error) {
+  //     return;
+  //   }
 
-    this.props.onSubmit({
-      taskName: this.state.taskName,
-      description: this.state.description
-    });
-    this.setState({
-      taskName: '',
-      description: '',
-      taskNameError: '',
-      descriptionError: ''
-    });
-  };
+  //   this.props.onSubmit({
+  //     taskName: this.state.taskName,
+  //     description: this.state.description
+  //   });
+  //   this.setState({
+  //     taskName: '',
+  //     description: '',
+  //     taskNameError: '',
+  //     descriptionError: ''
+  //   });
+  // };
 
   render() {
     return (
@@ -60,7 +62,10 @@ class TaskForm extends React.Component {
         <form
           className="col s12"
           autoComplete="off"
-          onSubmit={this.onTaskSubmit}
+          onSubmit={e => {
+            e.preventDefault();
+            this.props.addTask(this.state);
+          }}
         >
           <div className="row">
             <div className="input-field col s6">
@@ -106,4 +111,7 @@ class TaskForm extends React.Component {
   }
 }
 
-export default TaskForm;
+export default connect(
+  null,
+  { addTask }
+)(TaskForm);
